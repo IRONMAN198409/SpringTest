@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -18,7 +19,6 @@ public class Test02Controller {
 	
 	// 객체 리턴
 	@RequestMapping("/1")
-	@ResponseBody
 	public List<Map<String, Object>> movieList() {
 		
 		List<Map<String, Object>> movieList = new ArrayList<>();
@@ -57,16 +57,31 @@ public class Test02Controller {
 		return movieList;
 	}
 	
+	@RequestMapping("/2")
+	public List<Post> postList() {
+		
+		List<Post> postList = new ArrayList<>();
+		Post post = new Post("안녕하세요 가입인사 드립니다.", "hagulu", "안녕하세요. 가입했어요. 앞으로 잘 부탁드립니다. 활동 열심히 하겠습니다.");
+		postList.add(post);
+		
+		post = new Post("헐 대박", "bada", "오늘 목요일이 었어... 금요일인줄");
+		postList.add(post);
+		
+		post = new Post("오늘 데이트 한 이야기 해드릴게요.", "dulumary", "...");
+		postList.add(post);
+		
+		return postList;
+	}
 	
-//	public postList() {
-//		
-//		List<Post> postList = new ArrayList<>();
-//		Post post = new Post("안녕하세요 가입인사 드립니다.", "hagulu", "안녕하세요. 가입했어요. 앞으로 잘 부탁드립니다. 활동 열심히 하겠습니다.");
-//		postList.add(post);
-//		
-//		post = new Post
-//	}
-	
+	@RequestMapping("/3")
+	public ResponseEntity<Post> postError() {
+		
+		Post post = new Post("안녕하세요 가입인사 드립니다.", "hagulu", "안녕하세요. 가입했어요. 앞으로 잘 부탁드립니다. 활동 열심히 하겠습니다.");
+		ResponseEntity<Post> entity = new ResponseEntity<>(post, HttpStatus.INTERNAL_SERVER_ERROR);
+		
+		return entity;
+		
+	}
 //	@RequestMapping("/2")
 //	public ResponseEntity<Board> entityResponse() {
 //		
