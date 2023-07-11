@@ -12,7 +12,7 @@ import com.ironman.spring.test.mybatis.domain.RealEstate;
 import com.ironman.spring.test.mybatis.service.RealEstateService;
 
 @Controller
-@RequestMapping("/mybatis/realestate")
+@RequestMapping("/mybatis/realEstate")
 public class RealEstateController {
 	
 	@Autowired
@@ -45,9 +45,12 @@ public class RealEstateController {
 		return realEstateList;
 	}
 	
+	
+	// 객체 insert: 매물 정보를 객체로 저장
 	@RequestMapping("/test02/1")
 	@ResponseBody
 	public String createRealEstateByObject() {
+		
 		RealEstate realEstate = new RealEstate();
 		realEstate.setRealtorId(3);
 		realEstate.setAddress("푸르지용 리버 303동 1104호");
@@ -56,21 +59,32 @@ public class RealEstateController {
 		realEstate.setPrice(100000);
 		
 		int count = realEstateService.addRealEstateByObject(realEstate);
-		
-		return "삽입 개수 : " + count;
-		
+		return "입력 성공 : " + count;
+	}
+	
+	// 파라미터 insert
 	@RequestMapping("/test02/2")
 	@ResponseBody
-	public String createRealEstate() {
-		int count = realEstateService.addRealEstate("썅떼빌리버 오피스텔 814호", 45, "월세", 100000, 120);
-		return "삽입 개수 : " + count;
-	}
-		
-		
-		
+	public String createRealEstate(@RequestParam("realtorId") int realtorId) {
+		int count = realEstateService.addRealEstate(realtorId, "썅떼빌리버 오피스텔 814호", 45, "월세", 100000, 120);
+		return "입력 성공 : " + count;
 	}
 	
+	// update
+	@RequestMapping("/test02/3")
+	@ResponseBody
+	public String updateRealEstate() {
+		int count = realEstateService.updateRealEstate(7, "전세", 70000);
+		return "수정 성공 : " + count;
+	}
 	
+	// 전달받은 id의 매물 정보 삭제
+	@RequestMapping("/test02/4")
+	@ResponseBody
+	public String deleteRealEstate(@RequestParam("id") int id) {
+		int count = realEstateService.deleteRealEstate(id);
+		return "삭제 성공 : " + count;
+	}
 	
 	
 //	@Autowired 

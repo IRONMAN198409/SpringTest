@@ -55,12 +55,14 @@
 		FROM 
 		    `real_estate`
 		WHERE
-			<![CDATA[`area` >= #{area}
-			AND `price` <= #{price}]]>
-		ORDER BY `createdAt` DESC
+			<![CDATA[
+			`area` >= #{area}
+			AND `price` <= #{price}
+			]]>
 	</select>
 	
-	<insert id="insertRealEstateByObject" parameterType="com.ironman.spring.test.mybatis.domain.RealEstate">
+	<insert id="insertRealEstateByObject" 
+	parameterType="com.ironman.spring.test.mybatis.domain.RealEstate">
 		INSERT INTO
 			`real_estate`
 		(
@@ -69,6 +71,7 @@
 			, `area`
 			, `type`
 			, `price`
+			, `rentPrice`
 		)
 		VALUE
 		(
@@ -77,6 +80,7 @@
 			, #{area}
 			, #{type}
 			, #{price}
+			, #{rentPrice}
 		)
 	</insert>
 	
@@ -84,7 +88,8 @@
 		INSERT INTO
 			`real_estate`
 		(
-			`address`
+			`realtorId`
+			, `address`
 			, `area`
 			, `type`
 			, `price`
@@ -92,12 +97,30 @@
 		)
 		VALUE
 		(
-			#{address}
+			#{realtorId}
+			, #{address}
 			, #{area}
 			, #{type}
 			, #{price}
 			, #{rentPrice}
 		)
-	
 	</insert>
+	
+	<update id="updateRealEstate" parameterType="map">
+			UPDATE 
+				`real_estate`
+			SET  
+				`type` = #{type}
+				, `price` = #{price}
+				, `updatedAt` = now()   <!-- update에서는 꼭 추가해라 --> 
+			WHERE
+				`id` = #{id}
+	</update>
+	
+	<delete id="deleteRealEstate" parameterType="int">
+		DELETE FROM 
+			`real_estate`
+		WHERE 
+			`id` = #{id}
+	</delete>
   </mapper>
