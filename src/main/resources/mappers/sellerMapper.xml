@@ -4,24 +4,49 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
-  <mapper namespace="com.ironman.spring.test.jsp.repository.SellerRepository" >
-  		INSERT INTO `seller`
-  		(
+  <mapper namespace="com.ironman.spring.test.jsp.repository.SellerRepository">
+	<insert id="insertSeller" parameterType="map">
+		INSERT INTO
+			`seller`
+		(
 			`nickname`
-			`profileImage`
-			`temperature`
-  		)
-  		VALUE
-  		(
-  			#{nickname}
-  			, #{profileImage}
-  			, #{temperature}
-  		)
-  		
-  		
-  		
-  		
-  		
-  
-  
+			, `profileImage`
+			, `temperature`
+		)
+		VALUE 
+		(
+			#{nickname}
+			, #{profileUrl}
+			, #{temperature}
+		)
+	</insert>
+	
+	<select id="selectLastSeller" resultType="com.ironman.spring.test.jsp.domain.Seller">
+		SELECT 
+			`id` 
+			, `nickname`
+			, `profileImage` 
+			, `temperature`
+			, `createdAt` 
+			, `updatedAt`
+		FROM 
+			`seller`
+		ORDER BY 
+			`id` DESC 
+		LIMIT 1
+	</select>
+	
+	<select id="selectSeller" parameterType="int" resultType="com.ironman.spring.test.jsp.domain.Seller">
+		SELECT 
+			`id` 
+			, `nickname`
+			, `profileImage` 
+			, `temperature`
+			, `createdAt` 
+			, `updatedAt`
+		FROM 
+			`seller`
+		WHERE
+			id` = #{id}
+	</select>
   </mapper>
