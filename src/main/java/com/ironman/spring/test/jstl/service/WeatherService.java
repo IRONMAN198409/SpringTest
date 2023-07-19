@@ -1,5 +1,6 @@
 package com.ironman.spring.test.jstl.service;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,8 +21,19 @@ public class WeatherService {
 		return weatherhistory;
 	}
 	
-	public int addWether(Weather newWeatherInfo) {
-		int count = weatherRepository.insertWeather(newWeatherInfo);
+	public int addWeather(
+			Date date
+			, String weather
+			, double temperatures
+			, double precipitation
+			, String microDust
+			, double windSpeed) {
+		int count = weatherRepository.insertWeather(date, weather, temperatures, precipitation, microDust, windSpeed);
+		return count;
+	}
+	
+	public int addWeatherByObject(Weather weather) {
+		int count = weatherRepository.insertWeatherByObject(weather);
 		return count;
 	}
 }

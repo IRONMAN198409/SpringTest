@@ -10,7 +10,7 @@
 <body>
 	<form method="get" action="/jstl/weather/add">
 		<h1>날씨 입력</h1>
-		<label>날짜</label><input type="text" name="date">
+		<label>날짜</label><input type="text" id="date" name="date">
 		<label>날씨</label>
 		<select name="weather">
 			<option>맑음</option>

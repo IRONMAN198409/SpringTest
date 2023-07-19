@@ -20,7 +20,29 @@
   		FROM
   		    `weatherhistory`
   	</select>
-  	<insert id="insertWeather" parameterType="com.ironman.spring.test.jstl.domain.Weather">
+  	<insert id="insertWeather" parameterType="map">
+  		INSERT INTO
+  			`weatherhistory`
+  		(
+			, `date`
+			, `weather`
+			, `temperatures`
+			, `precipitation`
+			, `microDust`
+			, `windSpeed`
+  		)
+  		VALUE
+  		(
+  			#{date}
+  			, #{weather}
+  			, #{temperatures}
+  			, #{precipitation}
+  			, #{microDust}
+  			, #{windSeepd}
+  		)
+  	</insert>
+  	
+  	<insert id="insertWeatherByObject" parameterType="com.ironman.spring.test.jstl.domain.Weather">
   		INSERT INTO
   			`weatherhistory`
   		(
