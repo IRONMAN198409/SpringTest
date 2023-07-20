@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+ <mapper namespace="com.ironman.spring.test.ajax.repository.FavoritesRepository">
+ 	<select id="selectFavoritesList" resultType="com.ironman.spring.test.ajax.domain.Favorites">
+ 		SELECT
+ 			`id`
+			, `name`
+			, `url`
+			, `createdAt`
+			, `updatedAt`
+ 		FROM
+ 			`favorites`
+ 	</select>
+ 	<insert id="insertFavorites" parameterType="map">
+ 		INSERT INTO
+ 		 	`favorites`
+ 		(
+ 			`name`
+			, `url`
+ 		)
+ 		VALUE
+ 		(
+ 			#{name}
+ 			, #{url}
+ 		)
+ 		
+ 	</insert>
+ </mapper>
