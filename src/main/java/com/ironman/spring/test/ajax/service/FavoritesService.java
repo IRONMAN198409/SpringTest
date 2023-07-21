@@ -26,4 +26,27 @@ public class FavoritesService {
 		return count;
 	}
 	
+	// 전달된 url이 있는지 중복 여부를 리턴하는 메소드
+	public boolean isDuplicateUrl(String url) {
+		int count = favoritesRepository.selectCountUrl(url);
+		
+//		if(count == 0) {
+//			// 중복 안됨
+//			return false;
+//		} else {
+//			// 중복
+//			return true;
+//		}
+		
+		return count != 0;
+	}
+	
+	// 전달받은 id가 있는지 확인하는 메소드
+	public int deleteFavorites(int id) {
+		int count = favoritesRepository.deleteFavorites(id);
+		return count;
+	}
+	
+	
+	
 }

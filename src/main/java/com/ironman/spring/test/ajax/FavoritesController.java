@@ -56,12 +56,46 @@ public class FavoritesController {
 		return resultMap;
 		
 	}
-	
-	
 
 	// input.jsp 화면으로 이동
 	@GetMapping("/input")
 	public String favoritesInput() {
 		return "ajax/favorites/input";
+	}
+	
+	// 주소(url)을 전달받고, 이미 저장된 주소인지를 알려주는 API
+	@PostMapping("/url_confirm")
+	@ResponseBody
+	public Map<String, Boolean> isDuplicateUrl(@RequestParam("url") String url) {
+		
+		Map<String, Boolean> resultMap = new HashMap<>();
+//		if(favoritesService.isDuplicateUrl(url)) {
+//			// 중복됨
+//			resultMap.put("isDuplicate", true);
+//		} else {
+//			// 중복안됨
+//			resultMap.put("isDuplicate", false);
+//		}
+		
+		// 아래와 같이 줄여서 가능함
+		resultMap.put("isDuplicate", favoritesService.isDuplicateUrl(url));
+		
+		return resultMap;
+	}
+	
+	// id를 전달받고, 해당 데이타 삭제한 결과를 알려주는 API
+	@GetMapping("/delete")
+	@ResponseBody
+	public Map<String, Boolean> favoritesDelete(@RequestParam("id") int id) {
+		
+		int count = favoritesService.deleteFavorites(id);
+		
+		Map<String, Boolean> resultMap = new HashMap<>();
+		if(count == 1) {
+			resultMap.put("result", true);
+		} else {
+			resultMap.put("result", false);
+		} 
+		return resultMap;
 	}
 }

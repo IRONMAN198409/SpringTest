@@ -14,6 +14,7 @@
  		FROM
  			`favorites`
  	</select>
+ 	
  	<insert id="insertFavorites" parameterType="map">
  		INSERT INTO
  		 	`favorites`
@@ -26,6 +27,21 @@
  			#{name}
  			, #{url}
  		)
- 		
  	</insert>
+ 	
+ 	<select id="selectCountUrl" parameterType="String" resultType="int">
+ 		SELECT 
+ 			count(*)
+ 		FROM 
+ 			`favorites`
+ 		WHERE
+ 			`url` = #{url}
+ 	</select>
+ 	
+ 	<delete id="deleteFavorites" parameterType="int">
+		DELETE FROM 
+			`favorites`
+		WHERE 
+			`id` = #{id}
+ 	</delete>
  </mapper>

@@ -47,20 +47,20 @@ public class SellerController {
 		return "jsp/sellerInfo";
 	}
 	
-	@GetMapping("/info")  // 에러남, 확인필요
-	public String seller(@RequestParam(value="id", required=false) Integer id, Model model) {
-		
-		Seller seller = null;
-		if(id == null) {  // 파라미터가 없는 경우
-			seller = sellerService.getLastSeller();
-			
-		} else {  // id 파라미터가 전달된 경우
-			seller = sellerService.getSeller(id);
-			
-		}
-		model.addAttribute("seller", seller);
-		return "jsp/sellerInfo";
-	}
+//	@GetMapping("/info")  // 에러남, 확인필요
+//	public String seller(@RequestParam(value="id", required=false) int id, Model model) {
+//		
+//		Seller seller = null;
+//		if(id == null) {  // 파라미터가 없는 경우
+//			seller = sellerService.getLastSeller();
+//			
+//		} else {  // id 파라미터가 전달된 경우
+//			seller = sellerService.getSeller(id);
+//			
+//		}
+//		model.addAttribute("seller", seller);
+//		return "jsp/sellerInfo";
+//	}
 	
 	// seller id로 검색 출력
 //	@GetMapping("/sellerInfo_id")
