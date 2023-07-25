@@ -27,7 +27,7 @@
 					<td>${favorites.id }</td>
 					<td>${favorites.name }</td>
 					<td>${favorites.url }</td>
-					<td><button type="button" id="deleteBtn" class="btn btn-danger btn-sm delete-btn">삭제</button><td>
+					<td><button type="button" id="deleteBtn" class="btn btn-danger btn-sm delete-btn" data-favroite-id="${favorite.id}">삭제</button><td>
 				</tr>
 				</c:forEach>
 			</tbody>		
@@ -41,29 +41,25 @@
 	<script>
 		$(document).ready(function() {
 			$(".delete-btn").on("click", function() {
-				alert();
-				
-				// 삭제 대상이 되는 그 객체(버튼)의 id를 얻어와야 한다.
-				let id = 24;
-
+				// 삭제 대상의 id값
+				let id = $(this).data("favorite-id");
 				$.ajax({
 					type:"get"
 					, url:"/ajax/favorites/delete"
 					, data:{"id":id}
 					, success:function(data) {
-						if(data.result) {
-							location.href = "/ajax/favorites/list";
+						// 성공 : {"result":"seccess"}
+						// 실패 : {"result":"fail"}
+						if(data.result == "success") {
+							location.reload();   // 새로고침된다
 						} else {
-							alert("즐겨찾기 삭제 실패");
+							alert("삭제 실패");
 						}
 					}
 					, error:function() {
-						alert("즐겨찾기 삭제 에러");
+						alert("삭제 에러!!!!");
 					}
 				});
-				
-				
-				
 			});
 		});
 	</script>

@@ -86,16 +86,18 @@ public class FavoritesController {
 	// id를 전달받고, 해당 데이타 삭제한 결과를 알려주는 API
 	@GetMapping("/delete")
 	@ResponseBody
-	public Map<String, Boolean> favoritesDelete(@RequestParam("id") int id) {
-		
+	public Map<String, String> deleteFavorites(@RequestParam("id") int id) {
 		int count = favoritesService.deleteFavorites(id);
-		
-		Map<String, Boolean> resultMap = new HashMap<>();
+		// 성공 : {"result":"success"}
+		// 실패 : {"result":"fail"}
+		Map<String, String> resultMap = new HashMap<>();
 		if(count == 1) {
-			resultMap.put("result", true);
+			// 성공
+			resultMap.put("result", "success");
 		} else {
-			resultMap.put("result", false);
-		} 
+			// 실패
+			resultMap.put("result", "fail");
+		}
 		return resultMap;
 	}
 }
