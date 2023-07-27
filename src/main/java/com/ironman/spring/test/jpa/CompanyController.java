@@ -55,18 +55,39 @@ public class CompanyController {
 //		return companyList;
 //	}
 	
+	
 	@GetMapping("/update")
 	@ResponseBody
 	public Company updateCompany() {
+		// 버블팡 회사의 id가 8인 회사의 규모를 중소기업, 인원을 34으로 수정
 		Company company = companyService.updateCompany(12, "중소기업", 34);
 		return company;
 	}
 	
+	
+
+	
+//	@GetMapping("/update")
+//	@ResponseBody
+//	public Company updateCompany() {
+//		Company company = companyService.updateCompany(12, "중소기업", 34);
+//		return company;
+//	}
+	
 	@GetMapping("/delete")
 	@ResponseBody
 	public String deleteCompany() {
+		// id가 12번인 회사정보 삭제
 		companyService.deleteCompany(12);
 		return "삭제 성공";
-		
 	}
+
+	
+//	@GetMapping("/delete")
+//	@ResponseBody
+//	public String deleteCompany() {
+//		companyService.deleteCompany(12);
+//		return "삭제 성공";
+//		
+//	}
 }
