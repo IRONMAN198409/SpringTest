@@ -30,11 +30,21 @@ public interface RecruitRepository extends JpaRepository<Recruit, Integer> {
 	public List<Recruit> findTop3ByTypeOrderBySalaryDesc(String type);
 	
 	// 6. 범위 조회
-	// '성남시 분당구'가 지역, 연봉 7000이상 ~ 8500이하인 공고 조회
+	// '성남시 분당구'가 지역이고, 연봉 7000이상 ~ 8500이하인 공고 조회
 	public List<Recruit> findByRegionAndSalaryBetween(String region, int start, int end);
 	
 	// 7. Native query
-	// 마감일이 2026-04-10 이후, 연봉이 8100이상인 정규직 공고, 연봉 내림차순 조회
+	// 마감일이 2026-04-10 이후, 연봉이 8100이상인 '정규직' 공고, 연봉 내림차순 조회
 	@Query(value="SELECT * FROM `job_posting` WHERE `deadline` > :deadline AND `salary` >= :salary AND `type` = :type ORDER BY `salary` DESC", nativeQuery=true)
 	public List<Recruit> findByNative(@Param("deadline") String deadline, @Param("salary") int salary, @Param("type") String type);
+	
+	@Query(value="SELECT * FROM `job_posting` "
+				+ "WHERE `deadline` >= :deadline"
+			    + " AND `salary` >= :salary"
+				+ " AND `type` = :type"
+			    + " ORDER BY `salary` DESC", nativeQuery=true)
+	public List<Recruit> findNativeQuery(
+			@Param("deadline") String deadline
+			, @Param("salary") int salary
+			, @Param("type") String type);
 }

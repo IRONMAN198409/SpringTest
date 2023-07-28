@@ -51,25 +51,26 @@ public class RecruitController {
 	}
 
 	// 5. 정렬 제한 조건
-	// 계약직 목록을 연봉 기준으로 내림차순 3개만 조회	
-		
-
-		
-		
-//		List<Recruit> recruitList = recruitRepository.findTop3ByTypeOrderBySalaryDesc("계약직");
-//		return recruitList;
-		
-		// 6. 범위 조회
-		// 성남시 분당구가 지역, 연봉 7000이상 ~ 8500이하인 공고 조회
-//		List<Recruit> recruitList = recruitRepository.findByRegionAndSalaryBetween("성남시 분당구", 7000, 8500);
-//		return recruitList;
-	
-	@GetMapping("/native")
-	public List<Recruit> nativeRecruit() {
-		// 7. Native query
-		// 마감일이 2026-04-10 이후, 연봉이 8100이상인 정규직 공고, 연봉기준 내림차순 조회
-		List<Recruit> recruitList = recruitRepository.findByNative("2026-04-10", 8100, "정규직");
+	// 계약직 목록을 연봉 기준으로 내림차순 3개만 조회		
+	@GetMapping("/5")
+	public List<Recruit> recruitByType() {
+		List<Recruit> recruitList = recruitRepository.findTop3ByTypeOrderBySalaryDesc("계약직");
 		return recruitList;
 	}
 	
+	// 6. 범위 조회
+	// 성남시 분당구가 지역이고, 연봉 7000이상 ~ 8500이하인 공고 조회
+	@GetMapping("/6")
+	public List<Recruit> recruitByRegion() {
+		List<Recruit> recruitList = recruitRepository.findByRegionAndSalaryBetween("성남시 분당구", 7000, 8500);
+		return recruitList;
+	}
+
+	
+	// 7. Native query
+	// 마감일이 2026-04-10 이후, 연봉이 8100이상인 '정규직' 공고, 연봉기준 내림차순 조회
+	@GetMapping("/7")
+	public List<Recruit> recruitNativeQuery() {
+		return recruitRepository.findNativeQuery("2026-04-10 00:00:00", 8100, "정규직");
+	}
 }
